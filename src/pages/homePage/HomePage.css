@@ -1,0 +1,13 @@
+.HomePage {
+  width: 100% !important;
+  min-height: 100vh;
+}
+.MyModal {
+  width: 100% !important;
+  min-height: 100vh;
+  background: #0000008c;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}

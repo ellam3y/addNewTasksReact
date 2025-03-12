@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import "./HomePage.css";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import Swal from "sweetalert2";
 export default function HomePage() {
   const [task, setTask] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -20,6 +23,13 @@ export default function HomePage() {
       },
     ];
     setTask((prevTasks) => [...prevTasks, ...addTask]);
+    Swal.fire({
+      title: "task added",
+      icon: "success",
+      timer: 2500,
+    }).then(() => {
+      setShowModal(false);
+    });
   };
 
   return (
@@ -54,7 +64,30 @@ export default function HomePage() {
                 <td>{el.taskDescription}</td>
                 <td>{el.taskDate}</td>
                 <td>{el.taskTime}</td>
-                <td>{"actions"}</td>
+                <td>
+                  {
+                    <div className="d-flex justify-content-evenly align-content-center">
+                      <MdDeleteForever
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then(() => {
+                            setTask(task.filter((_, i) => i !== index));
+                            setShowModal(false);
+                          });
+                        }}
+                      />
+
+                      <FaEdit onClick={() => {}} />
+                    </div>
+                  }
+                </td>
               </tr>
             );
           })}
